@@ -14,65 +14,50 @@ import { useDispatch } from 'react-redux';
 
 const Login: React.FC = () => {
   
-  const [busy, setBusy] = useState(false)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('') 
-  const dispatch = useDispatch()
-  const history = useHistory()
+//   const [busy, setBusy] = useState(false)
+//   const [username, setUsername] = useState('')
+//   const [password, setPassword] = useState('') 
+//   const dispatch = useDispatch()
+//   const history = useHistory()
   
-  async function login(){
-    console.log(username, password)
-    setBusy(true)
-    const res = await loginUser(username, password)
-    console.log(res)
-    if (res){
-      console.log(res)
-      dispatch(setUserState(res.user?.email))
-      // dispatch(setUserState(res.user.email))
-      history.replace('/dashboard')
-      toast('You have logged in!')
+//   async function login(){
+//     console.log(username, password)
+//     setBusy(true)
+//     const res = await loginUser(username, password)
+//     console.log(res)
+//     if (res){
+//       console.log(res)
+//       dispatch(setUserState(res.user?.email))
+//       // dispatch(setUserState(res.user.email))
+//       history.replace('/dashboard')
+//       toast('You have logged in!')
       
-    }
-    setBusy(false)
-  }
+//     }
+//     setBusy(false)
+//   }
 
   return (
     <IonPage>
       <IonHeader>
+        
         <IonToolbar>
-          <IonButtons slot="start">
-            <IonBackButton  color="light"></IonBackButton>
-          </IonButtons>
-          <IonTitle>Log In</IonTitle>
+          <IonTitle className="logo">Connect 4 Good</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonLoading message = "Logging In..." duration={0} isOpen={busy}></IonLoading>
-      <IonContent className="ion-padding">
-        <IonItem className="item-input">
-          <IonLabel position="stacked" padding-bottom color="medium">EMAIL</IonLabel>
-          <IonInput type="email" placeholder="Username:" onIonChange={(e:any) => setUsername(e.target.value)}/>
-        </IonItem>
-        <br></br>
-        <IonItem >
-          <IonLabel position="stacked" padding-bottom color="medium">PASSWORD</IonLabel>
-          <IonInput type="password" placeholder="Password:"onIonChange={(e:any) => setPassword(e.target.value)}/>      
-        </IonItem>    
+      {/* <IonLoading message="Registering.." duration={0} isOpen={busy}></IonLoading> */}
 
-        <IonButton expand="full" type="submit"  className="submit-button ion-padding" padding-vertical onClick={login}>Log In
-    {/* <span >
-      <IonSpinner name="lines"></IonSpinner>
-    </span> */}
-        </IonButton>
+      <IonContent className="ion-padding ion-text-center">
+        <h1> I'm a </h1>
+        <IonButton size="large"> <Link to="/ngo_login" className="linktxt">NGO</Link></IonButton>
+        <br></br>
+        <IonButton size="large"> <Link to="/vol_login" className="linktxt">Volunteer</Link> </IonButton>
+        {/* <ExploreContainer /> */}
         <br></br>
         <p>New here? <Link to="/register">Register</Link></p>
-
       </IonContent>
-
-
-      
-
     </IonPage>
   );
+
 };
 
 export default Login;

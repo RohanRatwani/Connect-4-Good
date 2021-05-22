@@ -2,9 +2,13 @@ import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, IonSpinner } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
+import Login from './pages/Login/index';
+import NGO_Login from './pages/Login/ngo_login';
+import VOL_Login from './pages/Login/vol_login';
+import Register from './pages/Register/index';
 import Dashboard from './pages/Dashboard';
+import NGO_Register from './pages/Register/ngo_reg';
+import Volunteer_Register from './pages/Register/volunteer_reg';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -36,7 +40,11 @@ const RoutingSystem: React.FC = () =>{
       <IonRouterOutlet>
         <Route exact path="/" component={Home}/>
 				<Route exact path="/login" component={Login}/>
+        <Route exact path="/ngo_login" component={NGO_Login}/>
+        <Route exact path="/vol_login" component={VOL_Login}/>
 				<Route exact path="/register" component={Register}/>
+        <Route exact path="/ngo_reg" component={NGO_Register}/>
+        <Route exact path="/vol_reg" component={Volunteer_Register}/>
 				<Route exact path="/dashboard" component={Dashboard}/>
       </IonRouterOutlet>
     </IonReactRouter>

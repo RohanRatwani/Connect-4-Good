@@ -30,8 +30,9 @@ const config = {
 
 firebase.initializeApp(config)
 
-export async function loginUser(username: string, passowrd: string){
+export async function loginUser(flag: string, username: string, passowrd: string){
     const email = `${username}`
+    console.log(flag)
     
     try{
         const res = await firebase.auth().signInWithEmailAndPassword(username, passowrd)
