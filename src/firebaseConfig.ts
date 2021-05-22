@@ -7,14 +7,25 @@ import { toast } from './toast';
 require('firebase/auth')
 
 const config = {
-    apiKey: "AIzaSyBYoEP0uRwfXg7VuhIP9IHaR7Nm_DTDxs4",
-    authDomain: "ionicreact-eeb6a.firebaseapp.com",
-    databaseURL:"https://ionicreact-eeb6a-default-rtdb.firebaseio.com/",
-    projectId: "ionicreact-eeb6a",
-    storageBucket: "ionicreact-eeb6a.appspot.com",
-    messagingSenderId: "636561258230",
-    appId: "1:636561258230:web:064e19cf4c705df45aded7",
-    measurementId: "G-0TSV9KCR1C"
+    
+    apiKey: "AIzaSyAxPiCILq7GhnSXOYD5XI4fNyJ7rq5TOyw",
+    authDomain: "connect4good-ddf56.firebaseapp.com",
+    databaseURL:"https://connect4good-ddf56-default-rtdb.firebaseio.com/",
+    projectId: "connect4good-ddf56",
+    storageBucket: "connect4good-ddf56.appspot.com",
+    messagingSenderId: "660471562780",
+    appId: "1:660471562780:web:ec6c320ec9fce4877e95d9",
+    measurementId: "G-QQ2FPMM2BH"
+    
+    // apiKey: "AIzaSyBYoEP0uRwfXg7VuhIP9IHaR7Nm_DTDxs4",
+    // authDomain: "ionicreact-eeb6a.firebaseapp.com",
+    // databaseURL:"https://ionicreact-eeb6a-default-rtdb.firebaseio.com/",
+    // projectId: "ionicreact-eeb6a",
+    // storageBucket: "ionicreact-eeb6a.appspot.com",
+    // messagingSenderId: "636561258230",
+    // appId: "1:636561258230:web:064e19cf4c705df45aded7",
+    // measurementId: "G-0TSV9KCR1C"
+
 }
 
 firebase.initializeApp(config)
