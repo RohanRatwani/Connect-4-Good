@@ -29,7 +29,7 @@ const VOL_Login: React.FC = () => {
       console.log(res)
       dispatch(setUserState(res.user?.email))
       // dispatch(setUserState(res.user.email))
-      history.replace('/dashboard')
+      history.replace('/vol_dashboard')
       toast('You have logged in!')
       
     }
@@ -40,9 +40,12 @@ const VOL_Login: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonButtons slot="start">
+          {/* <IonButtons slot="start">
             <IonBackButton  color="light"></IonBackButton>
-          </IonButtons>
+          </IonButtons> */}
+          <IonButtons slot="start">
+          <IonBackButton defaultHref="home" />
+        </IonButtons>
           <IonTitle>Log In</IonTitle>
         </IonToolbar>
       </IonHeader>

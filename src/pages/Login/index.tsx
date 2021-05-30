@@ -41,6 +41,9 @@ const Login: React.FC = () => {
       <IonHeader>
         
         <IonToolbar>
+        <IonButtons slot="start">
+          <IonBackButton defaultHref="home" />
+        </IonButtons>
           <IonTitle className="logo">Connect 4 Good</IonTitle>
         </IonToolbar>
       </IonHeader>

@@ -41,9 +41,9 @@ const NGO_Login: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonButtons slot="start">
-            <IonBackButton  color="light"></IonBackButton>
-          </IonButtons>
+        <IonButtons slot="start">
+          <IonBackButton defaultHref="home" />
+        </IonButtons>
           <IonTitle>Log In</IonTitle>
         </IonToolbar>
       </IonHeader>

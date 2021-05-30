@@ -6,7 +6,8 @@ import Login from './pages/Login/index';
 import NGO_Login from './pages/Login/ngo_login';
 import VOL_Login from './pages/Login/vol_login';
 import Register from './pages/Register/index';
-import Dashboard from './pages/Dashboard';
+import Dashboard from './pages/Dashboard/index';
+import Vol_Dashboard from './pages/Dashboard/vol_dash';
 import NGO_Register from './pages/Register/ngo_reg';
 import Volunteer_Register from './pages/Register/volunteer_reg';
 
@@ -46,6 +47,7 @@ const RoutingSystem: React.FC = () =>{
         <Route exact path="/ngo_reg" component={NGO_Register}/>
         <Route exact path="/vol_reg" component={Volunteer_Register}/>
 				<Route exact path="/dashboard" component={Dashboard}/>
+        <Route exact path="/vol_dashboard" component={Vol_Dashboard}/>
       </IonRouterOutlet>
     </IonReactRouter>
   ) 

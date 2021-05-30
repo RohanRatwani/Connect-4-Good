@@ -1,5 +1,5 @@
-import { IonButton, IonContent, IonHeader, IonInput, IonPage, IonTitle, IonToolbar, IonLoading } from '@ionic/react';
-import { useState } from 'react';
+import { IonButton, IonContent, IonHeader, IonInput, IonPage, IonTitle, IonToolbar, IonLoading, IonBackButton, IonButtons } from '@ionic/react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ExploreContainer from '../../components/ExploreContainer';
 import { toast } from '../../toast';
@@ -41,6 +41,10 @@ const Register: React.FC = () => {
       <IonHeader>
         
         <IonToolbar>
+        <IonButtons slot="start">
+          <IonBackButton defaultHref="home" />
+        </IonButtons>
+
           <IonTitle className="logo">Connect 4 Good</IonTitle>
         </IonToolbar>
       </IonHeader>
