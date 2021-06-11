@@ -1,4 +1,4 @@
-import { IonButton, IonContent, IonHeader, IonInput, IonPage, IonTitle, IonToolbar, IonLoading, IonBackButton, IonButtons } from '@ionic/react';
+import { IonButton, IonContent, IonHeader, IonInput, IonPage, IonTitle, IonToolbar, IonLoading, IonBackButton, IonButtons, IonText, IonTextarea } from '@ionic/react';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ExploreContainer from '../../components/ExploreContainer';
@@ -13,6 +13,12 @@ const NGO_Register: React.FC = () => {
   const [address, setAddress] = useState('')
   const [city, setCity] = useState('')
   const [state, setState] = useState('')
+  const [organizer_fname, setFname] = useState('')
+  const [organizer_lname, setLname] = useState('')
+  const [country, setCountry] = useState('')
+  const [zip, setZip] = useState('')
+  const [description, setDescription] = useState('')
+  const [cause, setCause] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('') 
   const [cpassword, setCPassword] = useState('') 
@@ -30,10 +36,16 @@ const NGO_Register: React.FC = () => {
       const data = {
         ngo_name: ngo_name,
         username: username,
+        organizer_fname:organizer_fname,
+        organizer_lname:organizer_lname,
+        cause:cause,
         contact: contact,
         address: address,
         city:city,
-        state: state
+        state: state,
+        zip:zip,
+        country:country,
+        flag: flag
       }
       const res = await registerUser(flag, username, password, data)
       if(res){
@@ -63,13 +75,19 @@ const NGO_Register: React.FC = () => {
 
       <IonContent className="ion-padding ion-text-center">
         <IonInput placeholder="NGO name:" onIonChange={(e:any) => setngoname(e.target.value)}/>
-        <IonInput placeholder="Username:" onIonChange={(e:any) => setUsername(e.target.value)}/>
+        <IonInput placeholder="Email ID:" onIonChange={(e:any) => setUsername(e.target.value)}/>
+        <IonInput placeholder="Organizer First Name:" onIonChange={(e:any) => setFname(e.target.value)}/>
+        <IonInput placeholder="Organizer Last Name:" onIonChange={(e:any) => setLname(e.target.value)}/>
         <IonInput type="password" placeholder="Password:"onIonChange={(e:any) => setPassword(e.target.value)}/>
         <IonInput type="password" placeholder="Confirm Password:"onIonChange={(e:any) => setCPassword(e.target.value)}/>
         <IonInput placeholder="Contact Number"onIonChange={(e:any) => setContact(e.target.value)}/>
         <IonInput placeholder="Please enter address"onIonChange={(e:any) => setAddress(e.target.value)}/>
         <IonInput placeholder="City"onIonChange={(e:any) => setCity(e.target.value)}/>
         <IonInput placeholder="State"onIonChange={(e:any) => setState(e.target.value)}/>
+        <IonInput placeholder="Zip Code:" onIonChange={(e:any) => setZip(e.target.value)}/>
+        <IonInput placeholder="Country:" onIonChange={(e:any) => setCountry(e.target.value)}/>
+        <IonTextarea placeholder="Tell us about yourself:" onIonChange={(e:any) => setDescription(e.target.value)}/>
+        <IonTextarea placeholder="Cause(s):" onIonChange={(e:any) => setCause(e.target.value)}/>
         
         
         <IonButton onClick={register}>Register</IonButton>

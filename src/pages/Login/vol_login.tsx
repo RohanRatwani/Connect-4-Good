@@ -19,7 +19,7 @@ const VOL_Login: React.FC = () => {
   const [password, setPassword] = useState('') 
   const dispatch = useDispatch()
   const history = useHistory()
-  const flag = " volunteer"
+  const flag = "volunteer"
   async function login(){
     console.log(username, password)
     setBusy(true)

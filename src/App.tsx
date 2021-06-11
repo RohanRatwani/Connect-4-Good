@@ -1,4 +1,4 @@
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, useHistory } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, IonSpinner } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
@@ -10,7 +10,7 @@ import Dashboard from './pages/Dashboard/index';
 import Vol_Dashboard from './pages/Dashboard/vol_dash';
 import NGO_Register from './pages/Register/ngo_reg';
 import Volunteer_Register from './pages/Register/volunteer_reg';
-
+import ViewNgo from './pages/Dashboard/viewngo';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -35,6 +35,7 @@ import { useDispatch } from 'react-redux';
 import {setUserState} from './redux/action';
 
 
+
 const RoutingSystem: React.FC = () =>{
   return(
     <IonReactRouter>
@@ -47,7 +48,9 @@ const RoutingSystem: React.FC = () =>{
         <Route exact path="/ngo_reg" component={NGO_Register}/>
         <Route exact path="/vol_reg" component={Volunteer_Register}/>
 				<Route exact path="/dashboard" component={Dashboard}/>
+        <Route exact path="/viewngo" component={ViewNgo}/>
         <Route exact path="/vol_dashboard" component={Vol_Dashboard}/>
+
       </IonRouterOutlet>
     </IonReactRouter>
   ) 
@@ -56,13 +59,13 @@ const RoutingSystem: React.FC = () =>{
 const App: React.FC = () => {
   const [busy,setBusy] = useState(true) 
   const dispatch = useDispatch()
-
-
+  const history = useHistory()
   useEffect(()=>{
     getCurrentUser().then((user:any) => {
       if (user){
         dispatch(setUserState(user.email))
-        window.history.replaceState({},'','/dashboard')
+        console.log(user)
+        window.history.replaceState({},'',window.location.pathname)
       } else{
         window.history.replaceState({},'','/')
       }

@@ -3,8 +3,11 @@ import firebase from 'firebase/app';
 import 'firebase/storage'
 import 'firebase/analytics'
 import 'firebase/firestore';
+import ViewNgo from './pages/Dashboard/viewngo'
 
 import { toast } from './toast';
+import { useHistory } from 'react-router';
+import { render } from '@testing-library/react';
 require('firebase/auth')
 
 // const db = firebase.database();
@@ -34,6 +37,8 @@ if (firebase.apps.length === 0) {
     firebase.initializeApp(config);
   }
 const db = firebase.firestore();
+// const history = useHistory()
+
 
 export async function loginUser(flag: string, username: string, passowrd: string){
     const email = `${username}`
@@ -88,9 +93,41 @@ export async function getCurrentUser() {
 })
 }
 
-export async function displayCurrentUser() {
-  let user = firebase.auth().currentUser
-  return user?.email
+export async function displayCurrentUser(flag: string) {
+    let user:any = firebase.auth().currentUser
+    let usersEmail = user.email;
+
+    let userprofile: any[] = []
+    let userid = ""
+    if(flag == "ngo"){
+        console.log(usersEmail)
+        var doc = await db.collection("ngo").where("username", "==", usersEmail).get()
+        doc.forEach((doc: { id: any; data: () => any; }) => {
+            console.log(doc.id, '=>', doc.data());
+            doc.data().id = doc.id
+            userprofile.push(doc.data());
+            userid = doc.id;
+          });
+        // userprofile.push(userid)
+        return userprofile
+    }
+    else if(flag == "volunteer"){
+        let userdata = await db.collection("volunteers").where("username", "==", usersEmail).get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                // doc.data() is never undefined for query doc snapshots
+                // console.log(doc.id, " => ", doc.data());
+                var data = doc.data()
+                console.log(data)
+            });
+        })
+        .catch(function(error) {
+            console.log("Error getting documents: ", error);
+        });
+        // console.log(userdata)
+    }
+
+
+    // return userdata
 }
 
 export async function logoutUser() {
@@ -100,13 +137,35 @@ export async function logoutUser() {
   
 export async function getngolist() {
     
+    var ngolist: { id: any; data: () => any; }[] = []
     const ngoRef = db.collection('ngo');
     const doc = await ngoRef.get();
-    doc.forEach(doc => {
-        console.log(doc.id, '=>', doc.data());
+    doc.forEach((doc: { id: any; data: () => any; }) => {
+        // console.log(doc.id, '=>', doc.data());
+        doc.data()['id'] = doc.id;
+        ngolist.push(doc.data())
       });
-
+    // console.log(ngolist)
+    return ngolist
 }
 
+
+export async function updateavailability(ngoemail: any,objdata: any) {
+    const doc = await db.collection('ngo').where("username", "==",ngoemail).get();
+    doc.forEach((doc:{ id :any ; data:() => any; })=>{
+        console.log(doc.data(),"updatedata")
+    })
+    // console.log(updatedata)
+}
+
+export async function getngobyemail(email:any) {
+    let ngodata = {}
+    const doc = await db.collection('ngo').where("username","==",email).get();
+    doc.forEach((doc:{ id :any ; data:() => any; })=>{
+        console.log(doc.data(),"getngobyemail")
+        ngodata = doc.data()
+    })
+    return ngodata
+}
 
 export default firebase
