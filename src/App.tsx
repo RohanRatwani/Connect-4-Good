@@ -33,6 +33,7 @@ import { useEffect, useState } from 'react';
 import {getCurrentUser} from './firebaseConfig'
 import { useDispatch } from 'react-redux';
 import {setUserState} from './redux/action';
+import Viewvol_Dashboard from './pages/Dashboard/viewvolreg';
 
 
 
@@ -49,6 +50,7 @@ const RoutingSystem: React.FC = () =>{
         <Route exact path="/vol_reg" component={Volunteer_Register}/>
 				<Route exact path="/dashboard" component={Dashboard}/>
         <Route exact path="/viewngo" component={ViewNgo}/>
+        <Route exact path="/viewvol" component={Viewvol_Dashboard}/>
         <Route exact path="/vol_dashboard" component={Vol_Dashboard}/>
 
       </IonRouterOutlet>

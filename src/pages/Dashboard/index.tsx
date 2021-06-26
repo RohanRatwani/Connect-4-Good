@@ -9,6 +9,7 @@ import { useHistory } from 'react-router';
 import React, { useEffect, useState } from 'react';
 import names from '../../wordlist'
 import './style.css'
+import Viewvol_Dashboard from './viewvolreg';
 
 
 const Dashboard: React.FC = () => {
@@ -54,14 +55,31 @@ const Dashboard: React.FC = () => {
     let objdata = {days: days, starttime:starttime, endtime:endtime}
 
     updateavailability(ngoemail,objdata)
-
+    // window.location.reload()
   }
-  
+
+  const volviewroute = () => {
+   
+    
+    // const res = getngobyemail(data)
+    // setViewngo(res)
+    
+    history.push({
+      pathname:'/viewvol'
+    })
+    
+  }
+
+
   console.log(data)
   if (data){
     for (let items of data){
+      // setDays(items.days)
+      // setStartTime(items.starttime)
+      // setEndTime(items.endtime)
       // console.log(items,"ABCD")
       final.push(
+        
         <IonList>
           <IonItem>
           <IonLabel>
@@ -97,13 +115,13 @@ const Dashboard: React.FC = () => {
 
         <IonItem>
           <IonLabel>
-            Available Days: 
+            Available Days: {days.toString()}
           </IonLabel>
         </IonItem>
 
         <IonItem>
           <IonLabel>
-            Available Time:
+            Available Time: <br></br>Start Time: {starttime} <br></br> End Time: {endtime}
           </IonLabel>
         </IonItem>
         
@@ -161,7 +179,8 @@ const Dashboard: React.FC = () => {
         
         {final}
         <br></br>
-
+        
+        <IonButton onClick={volviewroute}> View Registered Volunteers </IonButton> <br></br>
         <IonButton onClick={logout} > Logout</IonButton>
       </IonContent>
     </IonPage>

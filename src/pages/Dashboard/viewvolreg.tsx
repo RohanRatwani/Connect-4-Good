@@ -4,20 +4,18 @@ import {MenuComponent} from '../../components/Menu';
 import './style.css';
 import {displayCurrentUser, getngobyemail} from '../../firebaseConfig'
 import { useSelector } from 'react-redux';
-import {logoutUser, getngolist} from '../../firebaseConfig'
+import {logoutUser, getregvollist} from '../../firebaseConfig'
 import { Redirect, Route, useHistory } from 'react-router';
 import React, { useEffect, useState } from 'react';
 import names from '../../wordlist'
 import './style.css'
 import {Plugins} from '@capacitor/core'
-import { Link } from 'react-router-dom';
-import ViewNgo from './viewngo';
 import { render } from '@testing-library/react';
-import ViewNGO from './viewngo'
 
-const Vol_Dashboard: React.FC = () => {
+
+const Viewvol_Dashboard: React.FC = () => {
   
-  const [viewngo, setViewngo] = useState({})
+  const [viewvol, setViewvol] = useState({})
   
   const [userdata, setUserdata] = useState<any | null>(null)
   useEffect(() => {
@@ -29,7 +27,7 @@ const Vol_Dashboard: React.FC = () => {
   },[]);
   
   const user_data = async() =>{
-    const user = await displayCurrentUser("volunteer")
+    const user = await displayCurrentUser("ngo")
     console.log(user)
     setUserdata(user)
 
@@ -38,23 +36,26 @@ const Vol_Dashboard: React.FC = () => {
   const final:any = []
   const [data, setData] = useState<any | null>(null)
   // let listofngo: any[] = []
-  const [ngodata, setNgodata] = useState(false);
+  const [voldata, setVoldata] = useState(false);
   useEffect(() => {
 
-    if(!ngodata){
-      ngo_data()
+    if(!voldata){
+      vol_data()
     }
 
   },[]);
 
-  const ngo_data = async() =>{
-    const datango = await getngolist()
+  const vol_data = async() =>{
+    if(userdata){
+    console.log(userdata[0])
+    const datango = await getregvollist(userdata[0].username)
     // console.log(datango)
     if (datango){
-      setNgodata(true)
+      setVoldata(true)
       setData(datango)
       // listofngo.push(...datango.map(obj => copy(obj)));
     }
+  }
     
   }
 
@@ -71,31 +72,22 @@ const Vol_Dashboard: React.FC = () => {
   }
   
 
-  const ngoviewroute = (data:any) => {
-   
-    console.log(data,"ngo")
-    
-    // const res = getngobyemail(data)
-    // setViewngo(res)
-    
-    history.push({
-      pathname:'/viewngo',
-      state: data
-    })
-    
+  function ngo_home(){
+    history.replace('/dashboard')
   }
-
 
   console.log(data,"AA")
   if (data){
-  for (let items of data){
+  for (let dataset of data){
     // console.log(items,"ABCD")
-    final.push(<IonCard key={items.username} >
+    if(dataset){
+    for (let items of dataset){
+    final.push(<IonCard key={items.vol_name} >
       <IonItem>
-        <IonIcon icon={business} slot="start" />
-        <IonLabel>{items.ngo_name}</IonLabel>
-        {console.log(items,"ITEMS")}
-        <IonButton fill="outline" slot="end" onClick={ () => ngoviewroute(items)} >View</IonButton>
+        <IonIcon icon={person} slot="start" />
+        <IonLabel>{items.vol_name}</IonLabel>
+        {console.log(items[0],"ITEMS")}
+        {/* <IonButton fill="outline" slot="end" onClick={ () => ngoviewroute(items)} >View</IonButton> */}
         {/* <form method="POST" action='/viewngo'>
           <input type="hidden" name="ngoid" value={items.username}></input>
           <IonButton fill="outline" slot="end" type="submit">View</IonButton>
@@ -104,10 +96,11 @@ const Vol_Dashboard: React.FC = () => {
       </IonItem>
 
       <IonCardContent>
-        {items.address} {items.city}
+        Email: {items.vol_email}<br></br> Registered Days:  {items.days} <br></br> Registered Time: {items.starttime} to {items.endtime}
       </IonCardContent>
     </IonCard>)
-
+    }
+    }
   }}
   
   return (
@@ -152,10 +145,10 @@ const Vol_Dashboard: React.FC = () => {
           </IonTabBar>
         </IonTabs> */}
 
-        <p>Hi, <br></br>Welcome to Volunteer Dashboard</p>
+        <p>Hi, <br></br>Welcome to Ngo Dashboard</p>
         {/* <ExploreContainer /> */}
         {/* {MenuComponent} */}
-        {user_data}
+        {/* {user_data} */}
         
 
         {final}
@@ -163,18 +156,12 @@ const Vol_Dashboard: React.FC = () => {
         
         
         <IonButton onClick={logout}> Logout</IonButton>
+        <IonButton onClick={ngo_home}> Home</IonButton>
+        
       </IonContent>
   
     </IonPage>
   );
 };
 
-export default Vol_Dashboard;
-function copy(obj: { id: any; data: () => any; }): any {
-  throw new Error('Function not implemented.');
-}
-
-function props(props: any) {
-  throw new Error('Function not implemented.');
-}
-
+export default Viewvol_Dashboard;

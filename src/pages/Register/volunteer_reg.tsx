@@ -14,6 +14,8 @@ const Volunteer_Register: React.FC = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('') 
   const [cpassword, setCPassword] = useState('') 
+  const [contact, setContact] = useState('') 
+  const [birth_date, setDob] = useState('') 
   
   async function register(){
     setBusy(true)
@@ -29,7 +31,9 @@ const Volunteer_Register: React.FC = () => {
         fname: fname,
         lname : lname,
         username: username,
-        interests:interests 
+        interests:interests,
+        contact:contact,
+        birth_date: birth_date
       }
       const res = await registerUser(flag, username, password, data)
       if(res){
@@ -58,15 +62,17 @@ const Volunteer_Register: React.FC = () => {
       <IonLoading message="Registering.." duration={0} isOpen={busy}></IonLoading>
 
       <IonContent className="ion-padding ion-text-center">
-        <IonInput placeholder="First Name:" onIonChange={(e:any) => setlname(e.target.value)}/>
-        <IonInput placeholder="Last Name:" onIonChange={(e:any) => setfname(e.target.value)}/>
-        <IonInput placeholder="Username:" onIonChange={(e:any) => setUsername(e.target.value)}/>
+        <IonInput placeholder="First Name:" onIonChange={(e:any) => setfname(e.target.value)}/>
+        <IonInput placeholder="Last Name:" onIonChange={(e:any) => setlname(e.target.value)}/>
+        <IonInput placeholder="Username:" type="email" onIonChange={(e:any) => setUsername(e.target.value)}/>
+        <IonInput placeholder="Contact No.:" onIonChange={(e:any) => setContact(e.target.value)}/>
         <IonInput type="password" placeholder="Password:"onIonChange={(e:any) => setPassword(e.target.value)}/>
         <IonInput type="password" placeholder="Confirm Password:"onIonChange={(e:any) => setCPassword(e.target.value)}/>
         <IonItem>
         <IonLabel>Date of Birth</IonLabel>
-          <IonDatetime value="1990-02-19" placeholder="Select Date"></IonDatetime>
+          <IonDatetime value="1990-02-19" placeholder="Select Date" onIonChange={(e:any) => setDob(e.target.value)}></IonDatetime>
         </IonItem>
+        <IonInput type="text" placeholder="Enter your Interests" onIonChange={(e:any) => setUserinterests(e.target.value)}></IonInput>
         <IonButton onClick={register}>Register</IonButton>
         {/* <ExploreContainer /> */}
         <p>Already have an Account? <Link to="/login">Login</Link></p>

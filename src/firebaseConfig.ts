@@ -58,7 +58,7 @@ export async function loginUser(flag: string, username: string, passowrd: string
 }
 
 export async function registerUser(flag:string, username: string, password: string, data:object){
-    const email = `${username}  `;
+    const email = `${username}`;
     try{
           const res = await firebase.auth().createUserWithEmailAndPassword(username,password);
           console.log(res, data)
@@ -112,19 +112,23 @@ export async function displayCurrentUser(flag: string) {
         return userprofile
     }
     else if(flag == "volunteer"){
-        let userdata = await db.collection("volunteers").where("username", "==", usersEmail).get().then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
+        let userdata = await db.collection("volunteers").where("username", "==", usersEmail).get()
+        userdata.forEach((doc: { id: any; data: () => any; }) => {
                 // doc.data() is never undefined for query doc snapshots
-                // console.log(doc.id, " => ", doc.data());
-                var data = doc.data()
-                console.log(data)
+                console.log(doc.id, " => ", doc.data());
+                // var data = doc.data()
+                doc.data().id = doc.id
+                userprofile.push(doc.data());
+                userid = doc.id;
             });
-        })
-        .catch(function(error) {
-            console.log("Error getting documents: ", error);
-        });
+            console.log(userprofile,"Vol")
+            return userprofile
+        }
+        // .catch(function(error) {
+        //     console.log("Error getting documents: ", error);
+        // });
         // console.log(userdata)
-    }
+    // }
 
 
     // return userdata
@@ -151,10 +155,15 @@ export async function getngolist() {
 
 
 export async function updateavailability(ngoemail: any,objdata: any) {
-    const doc = await db.collection('ngo').where("username", "==",ngoemail).get();
-    doc.forEach((doc:{ id :any ; data:() => any; })=>{
-        console.log(doc.data(),"updatedata")
+    let docid = ""
+    const docRef = await db.collection('ngo').where("username", "==",ngoemail).get();
+    docRef.forEach((doc:{ id :any ; data:() => any; })=>{
+        docid = doc.id;
+        console.log(doc.id,doc.data(),"updatedata",objdata)
     })
+    const updateRef = await db.collection('ngo').doc(docid)
+    const res = await updateRef.update({"days": objdata.days, "starttime":objdata.starttime, "endtime":objdata.endtime})
+
     // console.log(updatedata)
 }
 
@@ -167,5 +176,36 @@ export async function getngobyemail(email:any) {
     })
     return ngodata
 }
+
+
+
+export async function regforngo(ngoemail: any,objdata: any) {
+    let docid = ""
+    const docRef = await db.collection('ngo').where("username", "==",ngoemail).get();
+    docRef.forEach((doc:{ id :any ; data:() => any; })=>{
+        docid = doc.id;
+        console.log(doc.id,doc.data(),"updatedata",objdata)
+    })
+    const updateRef = await db.collection('ngo').doc(docid)
+    const res = await updateRef.update({"registered_volunteers": firebase.firestore.FieldValue.arrayUnion(objdata)})
+    console.log(res)
+    return res
+    // console.log(updatedata)
+}
+
+export async function getregvollist(ngouser: any) {
+    
+    var vollist: { id: any; data: () => any; }[] = []
+    const doc = await db.collection('ngo').where("username", "==",ngouser).get();
+    // const doc = await ngoRef.get();
+    doc.forEach((doc: { id: any; data: () => any; }) => {
+        // console.log(doc.id, '=>', doc.data());
+        doc.data()['id'] = doc.id;
+        vollist.push(doc.data()['registered_volunteers'])
+      });
+    // console.log(ngolist)
+    return vollist
+}
+
 
 export default firebase
