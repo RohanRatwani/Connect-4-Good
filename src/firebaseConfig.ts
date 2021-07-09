@@ -109,6 +109,7 @@ export async function displayCurrentUser(flag: string) {
             userid = doc.id;
           });
         // userprofile.push(userid)
+        console.log(userprofile)
         return userprofile
     }
     else if(flag == "volunteer"){

@@ -11,6 +11,7 @@ import names from '../../wordlist'
 import './style.css'
 import {Plugins} from '@capacitor/core'
 import { render } from '@testing-library/react';
+import { type } from 'os';
 
 
 const Viewvol_Dashboard: React.FC = () => {
@@ -18,44 +19,42 @@ const Viewvol_Dashboard: React.FC = () => {
   const [viewvol, setViewvol] = useState({})
   
   const [userdata, setUserdata] = useState<any | null>(null)
+  const [voldata, setVoldata] = useState(false);
   useEffect(() => {
 
     if(!userdata){
       user_data()
+
     }
 
   },[]);
   
   const user_data = async() =>{
     const user = await displayCurrentUser("ngo")
-    console.log(user)
-    setUserdata(user)
+    if (user){
+      console.log(user[0])
+      setUserdata(user[0])
+      vol_data(user[0])
 
+    }
+    
   }
 
   const final:any = []
   const [data, setData] = useState<any | null>(null)
   // let listofngo: any[] = []
-  const [voldata, setVoldata] = useState(false);
-  useEffect(() => {
+  
 
-    if(!voldata){
-      vol_data()
-    }
-
-  },[]);
-
-  const vol_data = async() =>{
-    if(userdata){
-    console.log(userdata[0])
-    const datango = await getregvollist(userdata[0].username)
-    // console.log(datango)
+  async function vol_data(udata: any){
+    
+    console.log(udata)
+    const datango = await getregvollist(udata.username)
+    console.log(datango)
     if (datango){
       setVoldata(true)
       setData(datango)
       // listofngo.push(...datango.map(obj => copy(obj)));
     }
-  }
     
   }
 
