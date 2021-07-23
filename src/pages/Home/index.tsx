@@ -12,12 +12,7 @@ const Home: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Hello WOrld!</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        {/* <ExploreContainer /> */}
+        
         <p>New here? <Link to="/register">Register</Link></p>
         <br></br>
         <p>Already have an Account? <Link to="/login">Login</Link></p>
