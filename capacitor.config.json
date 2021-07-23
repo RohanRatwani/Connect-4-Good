@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "fastthumbs",
+  "appId": "io.ionic.connect4good",
+  "appName": "Connect4Good",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",
